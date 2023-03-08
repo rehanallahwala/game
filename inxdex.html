@@ -2,54 +2,38 @@
 <html>
 <head>
     <title>Simple Calculator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h1>Simple Calculator</h1>
-    <form>
-        <label for="num1">Enter first number:</label>
-        <input type="number" id="num1" name="num1"><br>
+    <div class="calculator">
+        <form>
+            <input type="text" id="result" name="result" readonly>
 
-        <label for="num2">Enter second number:</label>
-        <input type="number" id="num2" name="num2"><br>
+            <button type="button" onclick="clearScreen()">C</button>
+            <button type="button" onclick="backspace()"><</button>
+            <button type="button" onclick="insert('/')" class="operator">/</button>
+            <button type="button" onclick="insert('*')" class="operator">*</button>
 
-        <label for="operation">Select operation:</label>
-        <select id="operation" name="operation">
-            <option value="add">Addition (+)</option>
-            <option value="subtract">Subtraction (-)</option>
-            <option value="multiply">Multiplication (*)</option>
-            <option value="divide">Division (/)</option>
-        </select><br>
+            <button type="button" onclick="insert('7')">7</button>
+            <button type="button" onclick="insert('8')">8</button>
+            <button type="button" onclick="insert('9')">9</button>
+            <button type="button" onclick="insert('-')" class="operator">-</button>
 
-        <button type="button" onclick="calculate()">Calculate</button><br>
+            <button type="button" onclick="insert('4')">4</button>
+            <button type="button" onclick="insert('5')">5</button>
+            <button type="button" onclick="insert('6')">6</button>
+            <button type="button" onclick="insert('+')" class="operator">+</button>
 
-        <label for="result">Result:</label>
-        <input type="number" id="result" name="result" readonly>
-    </form>
+            <button type="button" onclick="insert('1')">1</button>
+            <button type="button" onclick="insert('2')">2</button>
+            <button type="button" onclick="insert('3')">3</button>
+            <button type="button" onclick="calculate()" class="operator">=</button>
 
-    <script>
-        function calculate() {
-            var num1 = parseFloat(document.getElementById("num1").value);
-            var num2 = parseFloat(document.getElementById("num2").value);
-            var operation = document.getElementById("operation").value;
-            var result;
+            <button type="button" onclick="insert('0')">0</button>
+            <button type="button" onclick="insert('.')">.</button>
+        </form>
+    </div>
 
-            switch(operation) {
-                case "add":
-                    result = num1 + num2;
-                    break;
-                case "subtract":
-                    result = num1 - num2;
-                    break;
-                case "multiply":
-                    result = num1 * num2;
-                    break;
-                case "divide":
-                    result = num1 / num2;
-                    break;
-            }
-
-            document.getElementById("result").value = result;
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
