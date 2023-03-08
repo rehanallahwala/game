@@ -2,19 +2,24 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Change color on spacebar press</title>
-    <style>
-      .color-change {
-        color: blue;
-      }
-    </style>
+    <title>Change background color on spacebar press</title>
   </head>
   <body>
-    <p id="my-paragraph">Press spacebar to change color.</p>
+    <p>Press spacebar to change background color.</p>
     <script>
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
       document.addEventListener('keydown', function(event) {
         if (event.code === 'Space') {
-          document.getElementById('my-paragraph').classList.toggle('color-change');
+          var randomColor = getRandomColor();
+          document.body.style.backgroundColor = randomColor;
         }
       });
     </script>
