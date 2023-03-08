@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Change color on spacebar press</title>
+    <style>
+      .color-change {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="my-paragraph">Press spacebar to change color.</p>
+    <script>
+      document.addEventListener('keydown', function(event) {
+        if (event.code === 'Space') {
+          document.getElementById('my-paragraph').classList.toggle('color-change');
+        }
+      });
+    </script>
+  </body>
+</html>
