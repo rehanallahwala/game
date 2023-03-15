@@ -1,136 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Calculator</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f8f8;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-        }
-
-        h1 {
-            font-size: 36px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 30px;
-        }
-
-        .calculator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0px 0px 20px #ccc;
-        }
-
-        .row {
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 15px;
-        }
-
-        .input-field {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background-color: #eee;
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin: 5px;
-        }
-
-        .input-field input {
-            border: none;
-            background-color: transparent;
-            font-size: 24px;
-            color: #333;
-            flex: 1;
-            margin-left: 10px;
-            outline: none;
-            text-align: right;
-        }
-
-        .input-field input::placeholder {
-            color: #999;
-        }
-
-        .operator {
-            background-color: #3a3a3a;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            margin: 5px;
-            font-size: 24px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .operator:hover {
-            background-color: #1c1c1c;
-        }
-
-        .equal {
-            background-color: #ff5c5c;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            margin: 5px;
-            font-size: 24px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .equal:hover {
-            background-color: #e34242;
-        }
-    </style>
-    <script>
-        function calculate() {
-            var num1 = parseFloat(document.getElementById("num1").value);
-            var num2 = parseFloat(document.getElementById("num2").value);
-            var operator = document.getElementById("operator").value;
-            var result;
-
-            switch(operator) {
-                case "+":
-                    result = num1 + num2;
-                    break;
-                case "-":
-                    result = num1 - num2;
-                    break;
-                case "*":
-                    result = num1 * num2;
-                    break;
-                case "/":
-                    result = num1 / num2;
-                    break;
-                case "^":
-                    result = Math.pow(num1, num2);
-                    break;
-                default:
-                    result = "Invalid operator";
-            }
-
-            document.getElementById("result").value = result.toFixed(2);
-        }
-    </script>
+	<title>Multicolored Calculator</title>
+	<style>
+		body {
+			background-color: #333;
+			color: #fff;
+			font-family: Arial, sans-serif;
+		}
+		#calculator {
+			background-color: #444;
+			border-radius: 10px;
+			padding: 20px;
+			width: 300px;
+			margin: 0 auto;
+			text-align: center;
+		}
+		#calculator input[type="button"] {
+			background-color: #888;
+			color: #fff;
+			border-radius: 5px;
+			padding: 10px;
+			width: 40px;
+			margin: 5px;
+			font-size: 20px;
+			border: none;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+		#calculator input[type="button"]:hover {
+			background-color: #555;
+		}
+		#result {
+			background-color: #666;
+			border-radius: 5px;
+			padding: 10px;
+			margin: 10px;
+			font-size: 20px;
+			text-align: right;
+		}
+	</style>
 </head>
 <body>
-    <div class
+	<div id="calculator">
+		<div id="result"></div>
+		<input type="button" value="1" onclick="updateResult('1')">
+		<input type="button" value="2" onclick="updateResult('2')">
+		<input type="button" value="3" onclick="updateResult('3')">
+		<input type="button" value="+" onclick="updateResult('+')">
+		<br>
+		<input type="button" value="4" onclick="updateResult('4')">
+		<input type="button" value="5" onclick="updateResult('5')">
+		<input type="button" value="6" onclick="updateResult('6')">
+		<input type="button" value="-" onclick="updateResult('-')">
+		<br>
+		<input type="button" value="7" onclick="updateResult('7')">
+		<input type="button" value="8" onclick="updateResult('8')">
+		<input type="button" value="9" onclick="updateResult('9')">
+		<input type="button" value="*" onclick="updateResult('*')">
+		<br>
+		<input type="button" value="0" onclick="updateResult('0')">
+		<input type="button" value="." onclick="updateResult('.')">
+		<input type="button" value="C" onclick="clearResult()">
+		<input type="button" value="/" onclick="updateResult('/')">
+		<br>
+		<input type="button" value="=" onclick="calculateResult()">
+	</div>
+	<script>
+		function updateResult(value) {
+			document.getElementById("result").innerHTML += value;
+		}
+		function clearResult() {
+			document.getElementById("result").innerHTML = "";
+		}
+		function calculateResult() {
+			var result = eval(document.getElementById("result").innerHTML);
+			document.getElementById("result").innerHTML = result;
+		}
+	</script>
+</body>
+</html>
