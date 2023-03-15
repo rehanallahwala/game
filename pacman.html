@@ -1,103 +1,88 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Atari Ping Pong</title>
+    <title>Ping Pong Game</title>
     <style>
-      body {
-        background-color: black;
-        margin: 0;
-        padding: 0;
-      }
-
-      #canvas {
-        display: block;
-        margin: 0 auto;
-        border: 2px solid white;
+      canvas {
+        border: 1px solid black;
       }
     </style>
   </head>
   <body>
-    <canvas id="canvas" width="600" height="400"></canvas>
+    <canvas id="myCanvas" width="480" height="320"></canvas>
     <script>
-      // Initialize canvas and context
-      var canvas = document.getElementById("canvas");
+      var canvas = document.getElementById("myCanvas");
       var ctx = canvas.getContext("2d");
-
-      // Set initial ball position and speed
-      var ballX = canvas.width / 2;
-      var ballY = canvas.height / 2;
-      var ballSpeedX = 5;
-      var ballSpeedY = 5;
-
-      // Set initial paddle positions
-      var leftPaddleY = canvas.height / 2 - 25;
-      var rightPaddleY = canvas.height / 2 - 25;
-
-      // Set paddle size
-      var paddleWidth = 10;
-      var paddleHeight = 50;
-
-      // Set score
-      var leftScore = 0;
-      var rightScore = 0;
-
-      // Handle user input
-      document.addEventListener("keydown", function(event) {
-        if (event.key == "w") {
-          leftPaddleY -= 20;
-        } else if (event.key == "s") {
-          leftPaddleY += 20;
-        } else if (event.key == "ArrowUp") {
-          rightPaddleY -= 20;
-        } else if (event.key == "ArrowDown") {
-          rightPaddleY += 20;
+      var ballRadius = 10;
+      var x = canvas.width/2;
+      var y = canvas.height-30;
+      var dx = 2;
+      var dy = -2;
+      var paddleHeight = 10;
+      var paddleWidth = 75;
+      var paddleX = (canvas.width-paddleWidth)/2;
+      var rightPressed = false;
+      var leftPressed = false;
+      document.addEventListener("keydown", keyDownHandler, false);
+      document.addEventListener("keyup", keyUpHandler, false);
+      function keyDownHandler(e) {
+        if(e.keyCode == 39) {
+          rightPressed = true;
         }
-      });
-
-      // Update game state and draw to canvas
-      function update() {
-        // Move ball
-        ballX += ballSpeedX;
-        ballY += ballSpeedY;
-
-        // Bounce ball off walls
-        if (ballY < 0 || ballY > canvas.height) {
-          ballSpeedY = -ballSpeedY;
+        else if(e.keyCode == 37) {
+          leftPressed = true;
         }
-
-        // Bounce ball off paddles
-        if (
-          ballX <= paddleWidth &&
-          ballY >= leftPaddleY &&
-          ballY <= leftPaddleY + paddleHeight
-        ) {
-          ballSpeedX = -ballSpeedX;
-        } else if (
-          ballX >= canvas.width - paddleWidth &&
-          ballY >= rightPaddleY &&
-          ballY <= rightPaddleY + paddleHeight
-        ) {
-          ballSpeedX = -ballSpeedX;
+      }
+      function keyUpHandler(e) {
+        if(e.keyCode == 39) {
+          rightPressed = false;
         }
-
-        // Reset ball if it goes out of bounds and update score
-        if (ballX < 0) {
-          rightScore++;
-          ballX = canvas.width / 2;
-          ballY = canvas.height / 2;
-        } else if (ballX > canvas.width) {
-          leftScore++;
-          ballX = canvas.width / 2;
-          ballY = canvas.height / 2;
+        else if(e.keyCode == 37) {
+          leftPressed = false;
         }
-
-        // Draw game objects to canvas
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, leftPaddleY, paddleWidth, paddleHeight);
-        ctx.fillRect(canvas.width - paddleWidth, rightPaddleY, paddleWidth, paddleHeight);
+      }
+      function drawBall() {
         ctx.beginPath();
-        ctx.arc(ballX, ballY, 5, 0, 2 * Math.PI);
+        ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+        ctx.fillStyle = "#0095DD";
         ctx.fill();
-        ctx.font = "48px sans-serif";
-        ctx.fillText(leftScore, canvas.width / 4, 50);
-        ctx.fillText(rightScore, (
+        ctx.closePath();
+      }
+      function drawPaddle() {
+        ctx.beginPath();
+        ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBall();
+        drawPaddle();
+        if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+          dx = -dx;
+        }
+        if(y + dy < ballRadius) {
+          dy = -dy;
+        } else if(y + dy > canvas.height-ballRadius) {
+          if(x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy;
+          }
+          else {
+            alert("GAME OVER");
+            document.location.reload();
+          }
+        }
+        if(rightPressed && paddleX < canvas.width-paddleWidth) {
+          paddleX += 7;
+        }
+        else if(leftPressed && paddleX > 0) {
+          paddleX -= 7;
+        }
+        x += dx;
+        y += dy;
+      }
+      setInterval(draw, 10);
+    </script>
+  </body>
+</html>
