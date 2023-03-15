@@ -2,29 +2,104 @@
 <html>
 <head>
 	<title>Calculator</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+		}
+
+		.calculator {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0px 0px 20px #ccc;
+			display: inline-block;
+		}
+
+		h1 {
+			margin-top: 0;
+		}
+
+		input[type="button"] {
+			background-color: #4CAF50;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			margin: 5px;
+			cursor: pointer;
+			border-radius: 5px;
+			font-size: 16px;
+		}
+
+		input[type="text"] {
+			padding: 10px;
+			margin: 5px;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			width: 100%;
+			box-sizing: border-box;
+			text-align: right;
+			background-color: #e6e6e6;
+		}
+
+		input[type="text"]:focus {
+			outline: none;
+			border-color: #4CAF50;
+			box-shadow: 0px 0px 5px #4CAF50;
+		}
+
+		input[type="button"]:hover {
+			background-color: #3e8e41;
+		}
+	</style>
 	<script>
 		function calculate() {
-			var num1 = document.getElementById("num1").value;
-			var num2 = document.getElementById("num2").value;
+			var num1 = parseFloat(document.getElementById("num1").value);
+			var num2 = parseFloat(document.getElementById("num2").value);
 			var operator = document.getElementById("operator").value;
-			var result = eval(num1 + operator + num2);
+			var result;
+
+			switch(operator) {
+				case "+":
+					result = num1 + num2;
+					break;
+				case "-":
+					result = num1 - num2;
+					break;
+				case "*":
+					result = num1 * num2;
+					break;
+				case "/":
+					result = num1 / num2;
+					break;
+				case "^":
+					result = Math.pow(num1, num2);
+					break;
+				default:
+					result = "Invalid operator";
+			}
+
 			document.getElementById("result").value = result;
 		}
 	</script>
 </head>
 <body>
-	<h1>Calculator</h1>
-	<form>
-		<input type="text" id="num1" placeholder="Enter a number">
-		<select id="operator">
-			<option value="+">+</option>
-			<option value="-">-</option>
-			<option value="*">*</option>
-			<option value="/">/</option>
-		</select>
-		<input type="text" id="num2" placeholder="Enter another number">
-		<input type="button" value="Calculate" onclick="calculate()">
-		<input type="text" id="result" placeholder="Result">
-	</form>
+	<div class="calculator">
+		<h1>Calculator</h1>
+		<form>
+			<input type="text" id="num1" placeholder="Enter a number">
+			<select id="operator">
+				<option value="+">+</option>
+				<option value="-">-</option>
+				<option value="*">*</option>
+				<option value="/">/</option>
+				<option value="^">^</option>
+			</select>
+			<input type="text" id="num2" placeholder="Enter another number">
+			<input type="button" value="Calculate" onclick="calculate()">
+			<input type="text" id="result" placeholder="Result" readonly>
+		</form>
+	</div>
 </body>
 </html>
