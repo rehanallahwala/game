@@ -1,88 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Ping Pong Game</title>
-    <style>
-      canvas {
-        border: 1px solid black;
-      }
-    </style>
-  </head>
-  <body>
-    <canvas id="myCanvas" width="480" height="320"></canvas>
-    <script>
-      var canvas = document.getElementById("myCanvas");
-      var ctx = canvas.getContext("2d");
-      var ballRadius = 10;
-      var x = canvas.width/2;
-      var y = canvas.height-30;
-      var dx = 2;
-      var dy = -2;
-      var paddleHeight = 10;
-      var paddleWidth = 75;
-      var paddleX = (canvas.width-paddleWidth)/2;
-      var rightPressed = false;
-      var leftPressed = false;
-      document.addEventListener("keydown", keyDownHandler, false);
-      document.addEventListener("keyup", keyUpHandler, false);
-      function keyDownHandler(e) {
-        if(e.keyCode == 39) {
-          rightPressed = true;
-        }
-        else if(e.keyCode == 37) {
-          leftPressed = true;
-        }
-      }
-      function keyUpHandler(e) {
-        if(e.keyCode == 39) {
-          rightPressed = false;
-        }
-        else if(e.keyCode == 37) {
-          leftPressed = false;
-        }
-      }
-      function drawBall() {
-        ctx.beginPath();
-        ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-        ctx.fillStyle = "#0095DD";
-        ctx.fill();
-        ctx.closePath();
-      }
-      function drawPaddle() {
-        ctx.beginPath();
-        ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-        ctx.fillStyle = "#0095DD";
-        ctx.fill();
-        ctx.closePath();
-      }
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawBall();
-        drawPaddle();
-        if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
-          dx = -dx;
-        }
-        if(y + dy < ballRadius) {
-          dy = -dy;
-        } else if(y + dy > canvas.height-ballRadius) {
-          if(x > paddleX && x < paddleX + paddleWidth) {
-            dy = -dy;
-          }
-          else {
-            alert("GAME OVER");
-            document.location.reload();
-          }
-        }
-        if(rightPressed && paddleX < canvas.width-paddleWidth) {
-          paddleX += 7;
-        }
-        else if(leftPressed && paddleX > 0) {
-          paddleX -= 7;
-        }
-        x += dx;
-        y += dy;
-      }
-      setInterval(draw, 10);
-    </script>
-  </body>
+<head>
+	<title>Trivia</title>
+</head>
+<body>
+	<h1>Trivia Questions</h1>
+	<ol>
+		<li>
+			<h2>What is the capital of France?</h2>
+			<label><input type="radio" name="q1" value="a">a) Paris</label><br>
+			<label><input type="radio" name="q1" value="b">b) Berlin</label><br>
+			<label><input type="radio" name="q1" value="c">c) Madrid</label><br>
+		</li>
+		<li>
+			<h2>What is the largest organ in the human body?</h2>
+			<label><input type="radio" name="q2" value="a">a) Heart</label><br>
+			<label><input type="radio" name="q2" value="b">b) Lungs</label><br>
+			<label><input type="radio" name="q2" value="c">c) Skin</label><br>
+		</li>
+		<li>
+			<h2>Who is the founder of Microsoft?</h2>
+			<label><input type="radio" name="q3" value="a">a) Bill Gates</label><br>
+			<label><input type="radio" name="q3" value="b">b) Steve Jobs</label><br>
+			<label><input type="radio" name="q3" value="c">c) Jeff Bezos</label><br>
+		</li>
+		<li>
+			<h2>What is the smallest country in the world by land area?</h2>
+			<label><input type="radio" name="q4" value="a">a) Monaco</label><br>
+			<label><input type="radio" name="q4" value="b">b) Vatican City</label><br>
+			<label><input type="radio" name="q4" value="c">c) San Marino</label><br>
+		</li>
+	</ol>
+	<button onclick="checkAnswers()">Submit</button>
+	<script>
+		function checkAnswers() {
+			var q1 = document.querySelector('input[name="q1"]:checked').value;
+			var q2 = document.querySelector('input[name="q2"]:checked').value;
+			var q3 = document.querySelector('input[name="q3"]:checked').value;
+			var q4 = document.querySelector('input[name="q4"]:checked').value;
+			var score = 0;
+			
+			if (q1 === "a") {
+				score += 1;
+			}
+			
+			if (q2 === "c") {
+				score += 1;
+			}
+			
+			if (q3 === "a") {
+				score += 1;
+			}
+			
+			if (q4 === "b") {
+				score += 1;
+			}
+			
+			alert("You scored " + score + " out of 4!");
+		}
+	</script>
+</body>
 </html>
